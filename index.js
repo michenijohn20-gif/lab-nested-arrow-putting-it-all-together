@@ -1,20 +1,21 @@
 function createLoginTracker(userInfo) {
-  let attemptCount = 0;
-  const maxAttempts = 3; 
-  return (passwordAttempt) => {
-    if (attemptCount >= maxAttempts) {
-      return "Account locked due to too many failed login attempts.";
-    }
-    attemptCount++;
-    if (passwordAttempt === userInfo.password) {
-      return `Login successful!`;
-    } else {
-      if (attemptCount >= maxAttempts) {
-        return "Account locked due to too many failed login attempts";
-      }
-      return `Login failed.`;
-    }
-  };
+    let attemptCount = 0;
+
+    const loginAttempt = (passwordAttempt) => {
+        attemptCount++;
+
+        if (attemptCount > 3) {
+            return "Account locked due to too many failed login attempts";
+        }
+
+        if (passwordAttempt === userInfo.password) {
+            return "Login successful";
+        } else {
+            return `Attempt ${attemptCount}: Login failed`;
+        }
+    };
+
+    return loginAttempt;
 }
 
 
